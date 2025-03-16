@@ -1,8 +1,14 @@
 const { findMovieById } = require("../models/movieModel");
 
 const getMovieById = (req, res) => {
-    const movieId = encodeURIComponent(req.params.movie_id);
-    const movie = findMovieById(movieId);
+
+    const rawMovieId = req.params.movie_id;
+    const decodedMovieId = decodeURIComponent(rawMovieId);
+
+    const movie = findMovieById(decodedMovieId);
+
+    // const movieId = encodeURIComponent(req.params.movie_id);
+    // const movie = findMovieById(movieId);
 
     if (movie) {
         return res.status(200).json(movie);

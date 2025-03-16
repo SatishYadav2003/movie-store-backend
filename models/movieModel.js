@@ -15,7 +15,7 @@ const getMovies = () => {
 
 const findMovieById = (movieId) => {
   const movies = getMovies();
-  return movies.find((movie) => movie.movie_id === movieId);
+  return movies.find((movie) => decodeURIComponent(movie.movie_id) === movieId);
 };
 
 module.exports = { getMovies, findMovieById };
