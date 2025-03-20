@@ -9,7 +9,9 @@ const { PORT } = require("./config/serverConfig");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://movie4u-rock.onrender.com' 
+}));
 app.use(express.json());
 
 // Routes
