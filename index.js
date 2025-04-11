@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 const movieRoutes = require("./routes/movieRoutes");
 const emailRoutes = require("./routes/emailRoutes");
+const topMovieRoutes = require("./routes/topMovieRoutes");
 const filterMoviesRoutes = require("./routes/filterMoviesRoutes");
 const { PORT } = require("./config/serverConfig");
 
@@ -11,6 +12,7 @@ const app = express();
 // Middleware
 app.use(cors({
   origin: 'https://movie4u-rock.onrender.com' 
+  // origin:'*',
 }));
 app.use(express.json());
 
@@ -18,6 +20,7 @@ app.use(express.json());
 app.use("/api/movies", movieRoutes);
 app.use("/api/filter_movies",filterMoviesRoutes);
 app.use("/api", emailRoutes);
+app.use("/api/top_rated_movies",topMovieRoutes)
 
 // Start the server
 app.listen(PORT, () => {
