@@ -22,7 +22,7 @@ app.use("/api/movies", movieRoutes);
 app.use("/api/filter_movies",filterMoviesRoutes);
 app.use("/api", emailRoutes);
 app.use("/api/top_rated_movies",topMovieRoutes)
-app.get("/api/get-download-links", freshLinkRoutes);
+app.use("/api/get-download-links", freshLinkRoutes);
 
 // Start the server
 app.listen(PORT, () => {
