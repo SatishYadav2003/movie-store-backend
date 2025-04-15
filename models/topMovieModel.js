@@ -8,8 +8,17 @@ const getTopMovies = (limit = 5) => {
     const data = fs.readFileSync(jsonFilePath, "utf8");
     const allMovies = JSON.parse(data);
 
-    // You can sort based on some logic if needed, like rating, update date, etc.
-    const topMovies = allMovies.slice(0, limit); // Just take first N for now
+    // Parse the rating as a float, if it's "N/A", assign 0
+    const moviesWithRatings = allMovies.map(movie => ({
+      ...movie,
+      Rating: movie.Rating === "N/A" ? 0 : parseFloat(movie.Rating)
+    }));
+
+    // Sort the movies by rating in descending order
+    const sortedMovies = moviesWithRatings.sort((a, b) => b.Rating - a.Rating);
+
+    // Get the top movies
+    const topMovies = sortedMovies.slice(0, limit);
 
     return topMovies;
   } catch (error) {
