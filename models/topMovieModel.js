@@ -3,7 +3,7 @@ const path = require("path");
 
 const jsonFilePath = path.join(__dirname, "../compiled_movie_details.json");
 
-const getTopMovies = (limit = 5) => {
+const getTopMovies = (limit) => {
   try {
     const data = fs.readFileSync(jsonFilePath, "utf8");
     const allMovies = JSON.parse(data);
