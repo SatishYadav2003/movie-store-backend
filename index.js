@@ -12,12 +12,15 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'https://movie4u-rock.onrender.com' 
-  // origin:'*',
+  // origin: 'https://movie4u-rock.onrender.com' 
+  origin:'*',
 }));
 app.use(express.json());
 
 // Routes
+app.get("/",(req,res)=>{
+  res.send("hello sir")
+})
 app.use("/api/movies", movieRoutes);
 app.use("/api/filter_movies",filterMoviesRoutes);
 app.use("/api", emailRoutes);
