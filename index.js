@@ -12,8 +12,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  // origin: 'https://movie4u-rock.onrender.com' 
-  origin:'*',
+  origin: ['http://localhost:5173','*','https://movie-store-backend.onrender.com'], // Allow only your frontend URL
+  methods: 'GET,POST',
+  allowedHeaders: 'Content-Type, Authorization',
+  credentials: true,  // Enable credentials to be sent along with the request
 }));
 app.use(express.json());
 
