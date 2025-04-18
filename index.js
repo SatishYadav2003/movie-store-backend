@@ -11,12 +11,7 @@ const { PORT } = require("./config/serverConfig");
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: ['http://localhost:5173','*','https://movie-store-backend.onrender.com'], // Allow only your frontend URL
-  methods: 'GET,POST',
-  allowedHeaders: 'Content-Type, Authorization',
-  credentials: true,  // Enable credentials to be sent along with the request
-}));
+app.use(cors());
 app.use(express.json());
 
 // Routes
