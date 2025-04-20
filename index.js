@@ -81,10 +81,13 @@ app.get("/download", async (req, res) => {
       headers: customHeaders,
       responseType: "stream",
     });
+    const cleanFilename = path.basename(new URL(url).pathname);
 
     // Set download headers
     res.setHeader("Content-Type", response.headers["content-type"] || 'application/octet-stream');
-    res.setHeader("Content-Disposition", `attachment; filename="${path.basename(url)}"`);
+    res.setHeader("Content-Length", response.headers["content-length"] || '');
+    res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
+   
 
     // Pipe file to client
     response.data.pipe(res);
