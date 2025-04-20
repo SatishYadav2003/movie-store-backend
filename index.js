@@ -19,7 +19,7 @@ app.use("/api/filter_movies", filterMoviesRoutes);
 app.use("/api", emailRoutes);
 app.use("/api/top_rated_movies", topMovieRoutes);
 app.use("/api/get-download-links", freshLinkRoutes);
-app.use("/api", downloadRoutes);
+app.use("/api/download", downloadRoutes);
 
 
 app.listen(PORT, () => {
