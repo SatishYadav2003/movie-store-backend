@@ -54,7 +54,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
   res.send("hello sir")
 });
 app.use("/api/movies", movieRoutes);
@@ -81,13 +81,20 @@ app.get("/download", async (req, res) => {
       headers: customHeaders,
       responseType: "stream",
     });
-    const cleanFilename = path.basename(new URL(url).pathname);
+
 
     // Set download headers
     res.setHeader("Content-Type", response.headers["content-type"] || 'application/octet-stream');
     res.setHeader("Content-Length", response.headers["content-length"] || '');
-    res.setHeader("Content-Disposition", `attachment; filename="${cleanFilename}"`);
-   
+
+
+    const originalName = path.basename(new URL(url).pathname); // Get name from URL
+    const ext = path.extname(originalName);                    // Get the extension (e.g., .mp4)
+    const nameWithoutExt = path.basename(originalName, ext);   // Remove extension
+    const finalFileName = `${nameWithoutExt}-movie4u-rock${ext}`; // Add suffix before extension
+
+    res.setHeader("Content-Disposition", `attachment; filename="${finalFileName}"`);
+
 
     // Pipe file to client
     response.data.pipe(res);
