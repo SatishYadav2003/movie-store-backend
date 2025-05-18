@@ -3,23 +3,30 @@ const path = require("path");
 
 const jsonFilePath = path.join(__dirname, "../compiled_movie_details.json");
 
-const getRandomMovies = (limit) => {
+const getTopMovies = (limit) => {
   try {
     const data = fs.readFileSync(jsonFilePath, "utf8");
     const allMovies = JSON.parse(data);
 
-   
-    for (let i = allMovies.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [allMovies[i], allMovies[j]] = [allMovies[j], allMovies[i]];
-    }
+    const parsedMovies = allMovies.map((movie) => {
+      const ratingStr = movie.Rating?.trim();
+      const rating = parseFloat(ratingStr);
 
-    // Return the first `limit` number of movies
-    return allMovies.slice(0, limit);
+      return {
+        ...movie,
+        numericRating: isNaN(rating) ? 0 : rating,
+      };
+    });
+
+    const sortedMovies = parsedMovies.sort(
+      (a, b) => b.numericRating - a.numericRating
+    );
+
+    return sortedMovies.slice(0, limit);
   } catch (error) {
     console.error("Error reading movie JSON file:", error);
     return [];
   }
 };
 
-module.exports = { getRandomMovies };
+module.exports = { getTopMovies };
